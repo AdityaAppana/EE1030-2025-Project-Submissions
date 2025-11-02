@@ -26,7 +26,7 @@ plt.show()
 #Close current figure(s)
 plt.close('all')
 #Plot for validation
-B = np.loadtxt('validation_data.txt')
+B = np.loadtxt('validating_data.txt')
 Xv = np.hstack((np.ones((B.shape[0],1)),B[:,[0]],B[:,[0]]**2))
 Cv = B[:,[1]]
 Tv = B[:,[0]]
