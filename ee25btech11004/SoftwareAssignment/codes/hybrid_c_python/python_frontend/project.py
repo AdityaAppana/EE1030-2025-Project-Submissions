@@ -14,22 +14,16 @@ blank = np.zeros((rows,cols), dtype = np.double)
 
 c_lib = ctypes.CDLL('./svdshared.so')
 
-# 2. Define the C type for a pointer to a double
-c_double_ptr = ctypes.POINTER(ctypes.c_double)
-
-# 3. Create a C-style array of pointers to doubles
-# This will be equivalent to 'double**' in C
-
 
 c_lib.svd.argtypes = [
-    np.ctypeslib.ndpointer(dtype=np.double, ndim=2, flags="C_CONTIGUOUS"), # float** og
-    np.ctypeslib.ndpointer(dtype=np.double, ndim=2, flags="C_CONTIGUOUS"), # float** sum
-    ctypes.c_int,   # int rows
-    ctypes.c_int,   # int columns
-    ctypes.c_int    # int rank
+    np.ctypeslib.ndpointer(dtype=np.double, ndim=2, flags="C_CONTIGUOUS"),
+    np.ctypeslib.ndpointer(dtype=np.double, ndim=2, flags="C_CONTIGUOUS"), 
+    ctypes.c_int,   
+    ctypes.c_int,   
+    ctypes.c_int    
 ]
 
-rank = int(input(f"Enter rank for approximation"))
+rank = int(input("Enter rank for approximation"))
 
 
 c_lib.svd.restype = None

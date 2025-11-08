@@ -6,9 +6,7 @@
 __attribute__((visibility("default")))
 
 void free_matrix(double** mat, int rows) {
-    if (mat == NULL){
-        return;
-    }
+
     for (int i = 0; i < rows; i++) {
         free(mat[i]);
     }
@@ -141,7 +139,7 @@ double** qrdecompQ (double** A, int Arows, int Acols){
     int n = Arows;
     
     double normval = norm(AT[0], n);
-        if (normval == 0.0) normval = 1.0; // Avoid divide by zero
+        if (normval == 0.0) normval = 1.0; 
         for (int k = 0; k < n; k++) {
             Q[0][k] = AT[0][k] / normval;
         }
@@ -230,20 +228,20 @@ double*matrixvectormult (double** X, int Xrows, int Xcols, double * vector, doub
 }
 
 
-void copy_matrix_to_flat(double** matrix, double* flat_array, int rows, int cols) {
+void copy_matrix_to_flat(double** matrix, double* flatarray, int rows, int cols) {
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
-            flat_array[i * cols + j] = matrix[i][j];
+            flatarray[i * cols + j] = matrix[i][j];
         }
     }
 }
 
-double** create_matrix_from_flat(double* flat_array, int rows, int cols) {
+double** create_matrix_from_flat(double* flatarray, int rows, int cols) {
     double** matrix = (double**)malloc(rows * sizeof(double*));
     for (int i = 0; i < rows; i++) {
         matrix[i] = (double*)malloc(cols * sizeof(double));
         for (int j = 0; j < cols; j++) {
-            matrix[i][j] = flat_array[i * cols + j];
+            matrix[i][j] = flatarray[i * cols + j];
         }
     }
     return matrix;
@@ -251,10 +249,10 @@ double** create_matrix_from_flat(double* flat_array, int rows, int cols) {
 //start of main function
 
 
-void svd(double* og_flat, double* sum_flat,int rows,int columns, int rank){
+void svd(double* ogflat, double* sum_flat,int rows,int columns, int rank){
 
 
-    double** og = create_matrix_from_flat(og_flat, rows, columns);
+    double** og = create_matrix_from_flat(ogflat, rows, columns);
 
         double**buffer = transpose(og,rows,columns);
         
@@ -343,7 +341,6 @@ double **Ixtx = (double**)malloc(columns*sizeof(double*));
 
         double* v_p = (double*)malloc(columns * sizeof(double));
     if (v_p == NULL) {
-        printf("ERROR: Failed to allocate v_p\n");
         continue; // or exit
     }
 
